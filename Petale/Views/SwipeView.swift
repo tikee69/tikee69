@@ -176,7 +176,7 @@ struct SwipeView: View {
 
     private func refill() {
         queue.removeAll { store.photo($0) == nil }
-        let more = store.swipeCandidates(excluding: Set(queue), limit: 30 - queue.count)
+        let more = store.swipeCandidates(excluding: Set(queue), limit: max(0, 30 - queue.count))
         queue.append(contentsOf: more)
     }
 }

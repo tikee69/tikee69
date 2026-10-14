@@ -100,10 +100,7 @@ struct CleanupDetailView: View {
                             }
                         },
                         secondaryTitle: kind == .largeVideos ? nil : "Garder",
-                        onSecondary: kind == .largeVideos ? nil : {
-                            store.record(.keep, ids: Array(selection), source: .cleanup)
-                            selection.removeAll()
-                        }
+                        onSecondary: kind == .largeVideos ? nil : keepSelection
                     )
                 }
             }
@@ -125,5 +122,10 @@ struct CleanupDetailView: View {
         .onChange(of: ids) { _, newIDs in
             selection.formIntersection(newIDs)
         }
+    }
+
+    private func keepSelection() {
+        store.record(.keep, ids: Array(selection), source: .cleanup)
+        selection.removeAll()
     }
 }

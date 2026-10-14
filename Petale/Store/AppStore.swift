@@ -387,6 +387,7 @@ final class AppStore {
 
     /// Photos à présenter dans l'écran de tri : jamais triées, ordre aléatoire mais stable.
     func swipeCandidates(excluding: Set<String>, limit: Int) -> [String] {
+        guard limit > 0 else { return [] }
         let basket = Set(state.basket)
         let available = state.photos.values.filter {
             !$0.isFavorite && state.decisions[$0.id] == nil && !basket.contains($0.id) && !excluding.contains($0.id)
